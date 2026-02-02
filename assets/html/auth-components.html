@@ -1,0 +1,45 @@
+<!-- Authentication Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login to CSGO SHOP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <hr>
+        <p class="text-center small">Don't have an account? <a href="/pages/signup.html">Register here</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Menu Dropdown -->
+<div id="userMenu" class="dropdown d-none">
+  <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <i class="bi bi-person-circle"></i> <span id="userName">User</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" href="/pages/account-orders.html">My Orders</a></li>
+    <li><a class="dropdown-item" href="/pages/account-settings.html">Settings</a></li>
+    <li data-admin-only><a class="dropdown-item" href="/dashboard/index.html">Admin Panel</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><button class="dropdown-item" id="logoutBtn">Logout</button></li>
+  </ul>
+</div>
+
+<!-- Login Button (shown when not authenticated) -->
+<button id="loginBtn" class="btn btn-outline-primary" onclick="AuthUI.showLoginModal()">
+  <i class="bi bi-box-arrow-in-right"></i> Login
+</button>

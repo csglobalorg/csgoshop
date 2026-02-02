@@ -1,0 +1,108 @@
+<!-- Admin Dashboard - Payment Verification -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Payment Verification</h2>
+      
+      <div id="ordersContainer" class="mt-4">
+        <!-- Orders list will be loaded here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.order-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.order-card.pending {
+  border-left: 4px solid #ffc107;
+}
+
+.order-card.verified {
+  border-left: 4px solid #28a745;
+}
+
+.order-card.rejected {
+  border-left: 4px solid #dc3545;
+}
+
+.txn-id {
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+</style>
+
+<script>
+// Admin Payment Verification
+class AdminDashboard {
+  static async loadPendingOrders() {
+    const container = document.getElementById('ordersContainer');
+    try {
+      const orders = await api.getOrders();
+      const pendingOrders = orders.filter(o => o.status === 'payment_pending_verification');
+
+      if (pendingOrders.length === 0) {
+        container.innerHTML = '<p class="alert alert-info">No pending payments</p>';
+        return;
+      }
+
+      container.innerHTML = pendingOrders.map(order => `
+        <div class="order-card pending">
+          <div class="row">
+            <div class="col">
+              <h6>Order #${order.id.substring(0, 8)}</h6>
+              <p class="mb-1"><strong>Customer:</strong> ${order.phone}</p>
+              <p class="mb-1"><strong>Amount:</strong> ৳ ${order.total.toFixed(2)}</p>
+              <p class="mb-1"><strong>Method:</strong> ${order.payment_method.toUpperCase()}</p>
+              <p class="mb-0"><strong>TXN ID:</strong> <code class="txn-id">${order.txn_id}</code></p>
+            </div>
+            <div class="col-auto">
+              <textarea class="form-control form-control-sm mb-2" rows="3" id="notes_${order.id}" placeholder="Verification notes..."></textarea>
+              <button class="btn btn-success btn-sm me-2" onclick="AdminDashboard.verifyPayment('${order.id}', true)">
+                ✓ Verify
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="AdminDashboard.verifyPayment('${order.id}', false)">
+                ✗ Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      container.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+    }
+  }
+
+  static async verifyPayment(orderId, verified) {
+    const notes = document.getElementById(`notes_${orderId}`)?.value || '';
+    
+    try {
+      await api.verifyPayment(orderId, verified, notes);
+      alert(`Payment ${verified ? 'verified' : 'rejected'}`);
+      this.loadPendingOrders();
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  }
+
+  static init() {
+    if (!api.isSuperAdmin()) {
+      alert('Admin access required');
+      window.location.href = '/index.html';
+      return;
+    }
+
+    this.loadPendingOrders();
+    setInterval(() => this.loadPendingOrders(), 30000); // Refresh every 30 seconds
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => AdminDashboard.init());
+</script>

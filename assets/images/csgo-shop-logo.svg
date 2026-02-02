@@ -1,0 +1,44 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <defs>
+    <linearGradient id="logoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="200" fill="url(#logoBg)" rx="20"/>
+  
+  <!-- Shopping bag outline (main element) -->
+  <g transform="translate(50, 40)">
+    <!-- Bag handle -->
+    <path d="M 25 0 Q 25 20 50 20" stroke="url(#logoGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 75 0 Q 75 20 50 20" stroke="url(#logoGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <!-- Bag body -->
+    <path d="M 20 20 L 15 70 Q 15 80 25 80 L 75 80 Q 85 80 85 70 L 80 20 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="2.5"/>
+    
+    <!-- Bag shine effect -->
+    <ellipse cx="45" cy="50" rx="15" ry="20" fill="url(#logoGradient)" opacity="0.2"/>
+    
+    <!-- Shopping cart checkmark inside -->
+    <g transform="translate(45, 50)">
+      <!-- Checkmark path -->
+      <path d="M -8 0 L -2 6 L 10 -8" stroke="url(#logoGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+  
+  <!-- Text below logo -->
+  <text x="100" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#00d4ff" text-anchor="middle" letter-spacing="2">CSGO SHOP</text>
+  
+  <!-- Decorative dots -->
+  <circle cx="40" cy="175" r="2" fill="#0099cc" opacity="0.6"/>
+  <circle cx="100" cy="180" r="2" fill="#0099cc" opacity="0.6"/>
+  <circle cx="160" cy="175" r="2" fill="#0099cc" opacity="0.6"/>
+</svg>
