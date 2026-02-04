@@ -1,8 +1,10 @@
 // API Configuration
 // CHANGE THIS TO YOUR PRODUCTION BACKEND URL WHEN DEPLOYING
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const PROD_API_BASE_URL = 'https://your-backend.onrender.com/api'; // Replace with actual backend URL
+const storedApiBaseUrl = localStorage.getItem('apiBaseUrl');
+const API_BASE_URL = storedApiBaseUrl || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:5000/api'
-  : 'https://your-production-backend.onrender.com/api'; // Replace with actual backend URL
+  : PROD_API_BASE_URL);
 
 class CSGOAPI {
   constructor() {
@@ -172,3 +174,4 @@ class CSGOAPI {
 // Export singleton
 const api = new CSGOAPI();
 window.api = api;
+
