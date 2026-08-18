@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://csgoshop.zya.me/sitemap.xml

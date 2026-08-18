@@ -1,0 +1,22 @@
+## Codebase Patterns
+- This project uses a Vite-based frontend with a custom PHP/TypeScript backend.
+- Supabase is used for database and authentication.
+- Main logic is in `script.js` and `style.css`.
+- Hero section uses a split grid layout (992px breakpoint) for premium asset display.
+
+## Progress Log
+- Initialized Ralph autonomous framework.
+- Integrated AGENTS.md and CLAUDE.md instructions.
+- Set up skills and prd.json.
+- [US-001] Updated Hero Section with new premium design:
+  - Recreated the product composite image using AI based on user screenshot.
+  - Implemented a split-grid layout for the hero section.
+  - Added trust indicators (Secure Payment, Premium Quality, etc.) to the hero.
+  - Added "Trusted by 1200+ customers" badge.
+  - Improved responsive behavior for the hero section.
+- [US-002] Optimized Storefront Performance & Asset Loading:
+  - Removed `wsrv.nl` proxy injection in `script.js` to enable direct CDN loading.
+  - Refined `getOptimizedImageUrl` for better quality asset retrieval and suffix cleaning.
+  - Incremented `STORE_NAME` to `products_v6` to force a clean cache refresh.
+  - Consolidated Hero styles and implemented `/hero.webp` with `fetchpriority="high"`.
+  - Applied image optimization across all rendering paths (grid, details, quick view, cart).

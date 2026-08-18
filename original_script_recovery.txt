@@ -1,0 +1,69 @@
+Created At: 2026-07-02T08:14:42Z
+Completed At: 2026-07-02T08:14:42Z
+File Path: `file:///c:/Users/CS/OneDrive/Desktop/CSGO%20APP/script.js`
+Total Lines: 7170
+Total Bytes: 370885
+Showing lines 715 to 775
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+715: window.addEventListener('hashchange', handleRoute);
+716: 
+717: function handleRoute() {
+718:     const hash = window.location.hash.replace('#', '') || 'home';
+719:     const [page, param] = hash.split('?');
+720:     
+721:     let decodedParam = null;
+722:     if (param) {
+723:         const urlParams = new URLSearchParams(param);
+724:         decodedParam = urlParams.get('q') || urlParams.get('cat') || urlParams.get('id');
+725:     }
+726: 
+727:     window.scrollTo(0, 0);
+728:     closeMobileMenu();
+729:     closeMobileSearch(); // Close search bar on navigation
+730:     hideStickyBar(); // Hide sticky bar on any navigation
+731:     
+732: 
+733:     // Add entrance animation class
+734:     mainContent.classList.remove('reveal');
+735:     void mainContent.offsetWidth; // Force reflow
+736:     mainContent.classList.add('reveal');
+737:     
+738:     // Hide global footer sections on Dashboard
+739:     const globalBottom = document.getElementById('global-bottom-sections');
+740:     if (globalBottom) {
+741:         const user = JSON.parse(localStorage.getItem('csgo_user'));
+742:         if (page === 'account' && user) {
+743:             globalBottom.style.display = 'none';
+744:         } else {
+745:             globalBottom.style.display = 'block';
+746:         }
+747:     }
+748: 
+749:     
+750:     // Ensure icons are refreshed after some updates
+751:     setTimeout(refreshIcons, 100);
+752:     
+753:     switch(page) {
+754:         case 'categories':
+755:             renderCategories();
+756:             break;
+757:         case 'affiliate':
+758:             renderAffiliate();
+759:             break;
+760:         case 'home':
+761:             renderHome();
+762:             break;
+763:         case 'products':
+764:             renderProductList(decodedParam);
+765:             break;
+766:         case 'search':
+767:             renderProductList(null, decodedParam);
+768:             break;
+769:         case 'product-details':
+770:             renderProductDetails(decodedParam);
+771:             break;
+772:         case 'about':
+773:             renderAbout();
+774:             break;
+775:         case 'checkout':
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

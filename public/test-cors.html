@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+fetch('https://mohasagor.com.bd/api/reseller/product', {
+    headers: {
+        'API-KEY': 'A8niclztH9JtzS4t',
+        'SECRET-KEY': '2ff380917a11d3a7c97bcf6dddfb8adf38194c7d6b726ab12c4d0d5fb136fef8'
+    }
+})
+.then(res => res.json())
+.then(data => console.log("SUCCESS", data))
+.catch(err => console.error("ERROR", err));
+</script>
+</body>
+</html>

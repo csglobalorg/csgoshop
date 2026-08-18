@@ -1,0 +1,159 @@
+Created At: 2026-07-06T12:25:21Z
+Completed At: 2026-07-06T12:25:21Z
+File Path: `file:///c:/Users/CS/OneDrive/Desktop/CSGO%20APP/admin.js`
+Total Lines: 2957
+Total Bytes: 159548
+Showing lines 750 to 900
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+750:         alert(err.message);
+751:     }
+752: }
+753: 
+754: // ----------------------------------------------------
+755: // Phase 1: Category Manager
+756: // ----------------------------------------------------
+757: let cachedCategories = [];
+758: 
+759: function renderCategoriesHub() {
+760:     mainContent.innerHTML = `
+761:         <div class="flex justify-between items-center mb-6">
+762:             <h2 class="text-2xl font-bold text-white">Category Manager</h2>
+763:             <div class="flex space-x-3">
+764:                 <button onclick="openCatModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition flex items-center">
+765:                     <i class="fas fa-plus mr-2"></i> Add Category
+766:                 </button>
+767:                 <button onclick="openBulkModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded transition flex items-center">
+768:                     <i class="fas fa-layer-group mr-2"></i> Bulk Add
+769:                 </button>
+770:                 <button onclick="fetchCategories()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">
+771:                     <i class="fas fa-sync-alt"></i>
+772:                 </button>
+773:             </div>
+774:         </div>
+775: 
+776:         <!-- Info Banner -->
+777:         <div class="bg-blue-900 bg-blue-900 border border-blue-700 rounded-lg p-4 mb-6 flex items-start space-x-3">
+778:             <i class="fas fa-info-circle text-blue-400 mt-0.5"></i>
+779:             <div class="text-sm text-blue-200">
+780:                 <strong>3-Level Hierarchy:</strong> Category → Subcategory → Sub-subcategory.<br>
+781:                 <span class="text-blue-400">Changes here map directly to Product Hub category overrides.</span>
+782:             </div>
+783:         </div>
+784: 
+785:         <!-- Category Tree -->
+786:         <div id="categoryTree" class="space-y-3">
+787:             <div class="text-center py-10"><i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i></div>
+788:         </div>
+789: 
+790:         <!-- Add/Edit Category Modal -->
+791:         <div id="catModal" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-80 flex items-center justify-center hidden">
+792:             <div class="bg-gray-800 p-6 rounded-lg shadow-2xl w-full max-w-md border border-gray-700">
+793:                 <div class="flex justify-between items-center mb-4">
+794:                     <h3 class="text-xl font-bold text-white" id="catModalTitle">Add Category</h3>
+795:                     <button onclick="closeCatModal()" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+796:                 </div>
+797:                 <form id="catForm" class="space-y-4">
+798:                     <input type="hidden" id="catId">
+799:                     <div>
+800:                         <label class="block text-gray-400 text-sm mb-1">Name</label>
+801:                         <input type="text" id="catName" required class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="e.g. Women's Fashion">
+802:                     </div>
+803:                     <div>
+804:                         <label class="block text-gray-400 text-sm mb-1">Level</label>
+805:                         <select id="catLevel" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white" onchange="updateParentOptions()">
+806:                             <option value="1">Level 1 — Category</option>
+807:                             <option value="2">Level 2 — Subcategory</option>
+808:                             <option value="3">Level 3 — Sub-subcategory</option>
+809:                         </select>
+810:                     </div>
+811:                     <div id="parentSelectWrapper" class="hidden">
+812:                         <label class="block text-gray-400 text-sm mb-1">Parent</label>
+813:                         <select id="catParent" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white">
+814:                             <option value="">-- Select Parent --</option>
+815:                         </select>
+816:                     </div>
+817:                     <div class="flex items-center">
+818:                         <input type="checkbox" id="catActive" checked class="w-4 h-4 mr-2 text-blue-600 rounded bg-gray-700 border-gray-600">
+819:                         <label for="catActive" class="text-gray-300 text-sm">Active (visible in store)</label>
+820:                     </div>
+821:                     <div class="flex justify-end space-x-3 mt-6">
+822:                         <button type="button" onclick="closeCatModal()" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Cancel</button>
+823:                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center">
+824:                             <i class="fas fa-save mr-2"></i> Save
+825:                         </button>
+826:                     </div>
+827:                 </form>
+828:             </div>
+829:         </div>
+830: 
+831:         <!-- Bulk Add Modal -->
+832:         <div id="bulkCatModal" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-80 flex items-center justify-center hidden">
+833:             <div class="bg-gray-800 p-6 rounded-lg shadow-2xl w-full max-w-lg border border-gray-700">
+834:                 <div class="flex justify-between items-center mb-4">
+835:                     <h3 class="text-xl font-bold text-white">Bulk Add Categories</h3>
+836:                     <button onclick="closeBulkModal()" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+837:                 </div>
+838:                 <div class="space-y-4">
+839:                     <div>
+840:                         <label class="block text-gray-400 text-sm mb-1">Level</label>
+841:                         <select id="bulkLevel" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white" onchange="updateBulkParentOptions()">
+842:                             <option value="1">Level 1 — Category</option>
+843:                             <option value="2">Level 2 — Subcategory (needs parent)</option>
+844:                             <option value="3">Level 3 — Sub-subcategory (needs parent)</option>
+845:                         </select>
+846:                     </div>
+847:                     <div id="bulkParentWrapper" class="hidden">
+848:                         <label class="block text-gray-400 text-sm mb-1">Parent Category</label>
+849:                         <select id="bulkParent" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white">
+850:                             <option value="">-- Select Parent --</option>
+851:                         </select>
+852:                     </div>
+853:                     <div>
+854:                         <label class="block text-gray-400 text-sm mb-1">Names <span class="text-gray-500">(one per line)</span></label>
+855:                         <textarea id="bulkNames" rows="8" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white font-mono text-sm focus:outline-none focus:border-blue-500" placeholder="Women's Fashion
+856: Men's Fashion
+857: Electronics
+858: Home & Living"></textarea>
+859:                     </div>
+860:                     <div id="bulkError" class="text-red-400 text-sm hidden"></div>
+861:                     <div class="flex justify-end space-x-3">
+862:                         <button onclick="closeBulkModal()" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Cancel</button>
+863:                         <button onclick="submitBulkCategories()" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 flex items-center" id="bulkSubmitBtn">
+864:                             <i class="fas fa-upload mr-2"></i> Add All
+865:                         </button>
+866:                     </div>
+867:                 </div>
+868:             </div>
+869:         </div>
+870:     `;
+871: 
+872:     document.getElementById('catForm').addEventListener('submit', handleSaveCategory);
+873:     fetchCategories();
+874: }
+875: 
+876: window.fetchCategories = async function() {
+877:     const tree = document.getElementById('categoryTree');
+878:     if (!tree) return;
+879:     tree.innerHTML = '<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i></div>';
+880:     
+881:     try {
+882:         const { data: { session } } = await supabase.auth.getSession();
+883:         const res = await fetch('https://sdbgeuyzepwnxpresktm.supabase.co/functions/v1/admin', {
+884:             method: 'POST',
+885:             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+886:             body: JSON.stringify({ action: 'get_categories' })
+887:         });
+888:         const data = await res.json();
+889:         cachedCategories = data.categories || [];
+890:         renderCategoryTree();
+891:     } catch(err) {
+892:         tree.innerHTML = `<div class="text-red-400 text-center py-6">Error loading categories: ${err.message}</div>`;
+893:     }
+894: }
+895: 
+896: function renderCategoryTree() {
+897:     const tree = document.getElementById('categoryTree');
+898:     if (!tree) return;
+899:     
+900:     if (cachedCategories.length === 0) {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

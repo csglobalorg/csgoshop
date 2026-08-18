@@ -1,0 +1,39 @@
+{
+  "project": "CSGO SHOP",
+  "branchName": "main",
+  "description": "CSGO SHOP Enhancement - Storefront Performance & Asset Optimization",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Update Hero Image with New Asset",
+      "description": "Replace the existing hero image with the new premium design and optimize for LCP.",
+      "priority": 1,
+      "status": "completed",
+      "passes": true
+    },
+    {
+      "id": "US-002",
+      "title": "Direct CDN Image Loading",
+      "description": "Remove wsrv.nl proxy and implement direct loading with HD cleaning logic to eliminate latency.",
+      "priority": 1,
+      "status": "completed",
+      "passes": true
+    },
+    {
+      "id": "US-003",
+      "title": "Universal Product Image Support",
+      "description": "Handle relative image paths for Mohasagor and Merrono providers, and upgrade all image URLs to HTTPS.",
+      "priority": 1,
+      "status": "completed",
+      "passes": true
+    },
+    {
+      "id": "US-004",
+      "title": "Real-time Order Tracking UI",
+      "description": "Initialize Supabase client in frontend and implement a premium order tracking view with product breakdown.",
+      "priority": 1,
+      "status": "completed",
+      "passes": true
+    }
+  ]
+}

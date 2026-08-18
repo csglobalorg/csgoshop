@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://sdbgeuyzepwnxpresktm.supabase.co">
+    <link rel="preconnect" href="https://wsrv.nl">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap">
+    <link rel="preload" as="image" href="/hero.webp">
+    <link rel="preload" as="image"
+        href="https://sdbgeuyzepwnxpresktm.supabase.co/storage/v1/object/public/Payment/CSGO%20SHOP-%20LOGO.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Bengali:wght@400;600&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script>
+      tailwind = {
+        config: {
+          corePlugins: {
+            preflight: false,
+          }
+        }
+      }
+    </script>
+
+    <script>
+        (function () {
+            try {
+                const originalFetch = window.fetch;
+                Object.defineProperty(window, 'fetch', {
+                    get: function () { return originalFetch; },
+                    set: function (val) { console.warn('Prevented attempt to overwrite window.fetch'); },
+                    configurable: true
+                });
+            } catch (e) {}
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSGO SHOP | Best Online Shopping in Bangladesh (BD)</title>
+    <meta name="description"
+        content="CSGO SHOP - The #1 premium online shop in Bangladesh. Buy electronics, gaming gear, fashion, and lifestyle products at the best prices in BD with fast delivery.">
+    <meta name="keywords"
+        content="csgo shop bd, online shopping bangladesh, best ecommerce site bd, gaming shop bangladesh, csgo store bangladesh, tech shop dhaka, online mall bd">
+
+    <!-- Advanced SEO: JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "OnlineStore",
+      "name": "CSGO SHOP",
+      "url": "https://csgoshop.zya.me/",
+      "logo": "https://sdbgeuyzepwnxpresktm.supabase.co/storage/v1/object/public/Payment/CSGO%20SHOP-%20LOGO.png",
+      "description": "Premium online shopping destination in Bangladesh for electronics, fashion, and more.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://csgoshop.zya.me/#search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://csgoshop.zya.me/">
+    <meta property="og:title" content="CSGO SHOP BD - Best Online Shopping in Bangladesh">
+    <meta property="og:description"
+        content="Shop premium electronics, fashion, and lifestyle products at CSGO SHOP. Fast delivery all over Bangladesh.">
+    <meta property="og:image"
+        content="https://sdbgeuyzepwnxpresktm.supabase.co/storage/v1/object/public/Payment/CSGO%20SHOP-%20LOGO.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://csgoshop.zya.me/">
+    <meta property="twitter:title" content="CSGO SHOP - Best Online Shopping in Bangladesh">
+    <meta property="twitter:description"
+        content="CSGO SHOP - Best Online Shopping in Bangladesh. Buy electronics, fashion, and lifestyle products at the best prices.">
+    <meta property="twitter:image"
+        content="https://sdbgeuyzepwnxpresktm.supabase.co/storage/v1/object/public/Payment/CSGO%20SHOP-%20LOGO.png">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Chart.js for affiliate dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #020617;
+            --accent-color: #f59e0b;
+            --text-color: #f8fafc;
+            --bg-light: #1e293b;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #334155;
+            border-top: 5px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .reveal {
+            animation: reveal 0.4s cubic-bezier(0, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: var(--bg-glass-heavy);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <script>
+        // Instant UI: Try to load the home page from cache within milliseconds
+        (function () {
+            try {
+                // UI Functions must be available immediately
+                window.toggleMobileSearch = function () {
+                    const searchBar = document.getElementById('mobile-search-bar');
+                    if (searchBar) {
+                        searchBar.classList.toggle('active');
+                        if (searchBar.classList.contains('active')) {
+                            const input = document.getElementById('mobile-search-input');
+                            if (input) setTimeout(() => input.focus(), 300);
+                        }
+                    }
+                };
+
+                window.toggleMobileMenu = function () {
+                    const nav = document.getElementById('nav-list');
+                    if (nav) nav.classList.toggle('active');
+                };
+
+                const cachedHtml = localStorage.getItem('csgo_home_cache_v3');
+                const lastSync = localStorage.getItem('csgo_sync_time_v3');
+                if (cachedHtml && lastSync && (Date.now() - lastSync < 24 * 60 * 60 * 1000)) {
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const main = document.getElementById('main-content');
+                        if (main && (window.location.hash === '' || window.location.hash === '#home')) {
+                            main.innerHTML = cachedHtml;
+                            const loader = document.getElementById('loader');
+                            if (loader) loader.style.display = 'none';
+                        }
+                    });
+                }
+            } catch (e) { console.error('Instant UI Error:', e); }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Mini Cart Drawer UI -->
+    <div class="mini-cart-overlay" id="mini-cart-overlay" onclick="toggleMiniCart(false)">
+        <div class="mini-cart-drawer" onclick="event.stopPropagation()">
+            <div class="mini-cart-header">
+                <h3>Shopping Cart</h3>
+                <button onclick="toggleMiniCart(false)"
+                    style="background:none; border:none; color:white; font-size: 1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div class="mini-cart-content" id="mini-cart-items">
+                <!-- Cart items will be injected here -->
+            </div>
+            <div class="mini-cart-footer">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 600;">
+                    <span>Subtotal:</span>
+                    <span>৳<span id="mini-cart-total">0</span></span>
+                </div>
+                <button class="btn" style="width: 100%; border-radius: 12px; padding: 15px;"
+                    onclick="toggleMiniCart(false); navigateTo('checkout')">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner (Non-blocking) -->
+    <div id="loader" class="loader-container" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <!-- Premium Header -->
+    <header class="header" id="main-header">
+        <!-- Top Bar: Brand, Search, Icons -->
+        <div class="header-top">
+            <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 80px;">
+                
+                <!-- Left: Mobile Menu & Brand -->
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="mobile-menu-toggle desktop-hidden" onclick="toggleMobileMenu()" aria-label="Open menu"
+                        style="background:none; border:none; color:inherit; cursor: pointer; display: none;">
+                        <i class="fas fa-bars" style="font-size: 1.25rem;"></i>
+                    </button>
+                    <a href="#" onclick="navigateTo('home'); return false;" class="logo" style="text-decoration: none;"
+                        title="CSGO SHOP">
+                        <div class="clean-logo" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;">CSGO<span style="color: var(--accent-primary);">SHOP</span></div>
+                    </a>
+                </div>
+
+                <!-- Center: Large Search Bar (Desktop) -->
+                <div class="desktop-search-wrapper desktop-only" style="flex: 1; max-width: 600px;">
+                    <div style="display: flex; align-items: center; background: var(--bg-elevated); border: 1px solid var(--border-medium); border-radius: var(--radius-btn); padding: 0; overflow: hidden; transition: border-color 0.3s;"
+                         onfocusin="this.style.borderColor='var(--accent-primary)'"
+                         onfocusout="this.style.borderColor='var(--border-medium)'">
+                        <input type="text" id="desktop-search-input" placeholder="Search products, categories and brands..."
+                            oninput="handleLiveSearch(this.value)" onfocus="openSearchOverlay()"
+                            onkeypress="if(event.key === 'Enter') { closeSearchOverlay(); navigateTo('search', this.value); }"
+                            autocomplete="off"
+                            style="flex: 1; background: transparent; border: none; padding: 12px 20px; color: var(--text-primary); font-size: 0.95rem; outline: none; width: 100%;">
+                        <button class="clear-search" onclick="clearSearch()" style="display:none; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0 10px;"><i class="fas fa-times"></i></button>
+                        <button class="search-btn"
+                            style="background: var(--accent-gradient); color: #020617; border: none; padding: 0 25px; height: 46px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'"
+                            onclick="closeSearchOverlay(); navigateTo('search', document.getElementById('desktop-search-input').value)">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Icons (Account, Wishlist, Cart) -->
+                <div class="header-icons" style="display: flex; align-items: center; gap: 20px;">
+                    <!-- Mobile Search Trigger -->
+                    <button class="mobile-search-toggle desktop-hidden" onclick="toggleMobileSearch()" aria-label="Toggle search"
+                        style="background:none; border:none; color:inherit; cursor: pointer; padding: 5px; display: none;">
+                        <i class="fas fa-search" style="font-size: 1.25rem;"></i>
+                    </button>
+                    
+                    <button class="user-icon desktop-only" onclick="navigateTo('account')" aria-label="My Account"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 4px; background:none; border:none; color:var(--text-secondary); cursor: pointer; transition: color 0.3s;"
+                        onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                        <i class="far fa-user" style="font-size: 1.25rem;"></i>
+                        <span style="font-size: 0.75rem; font-weight: 500;">Account</span>
+                    </button>
+                    
+                    <button class="wishlist-icon desktop-only" onclick="navigateTo('wishlist')" aria-label="My Wishlist"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 4px; background:none; border:none; color:var(--text-secondary); cursor: pointer; transition: color 0.3s;"
+                        onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                        <i class="far fa-heart" style="font-size: 1.25rem;"></i>
+                        <span style="font-size: 0.75rem; font-weight: 500;">Wishlist</span>
+                    </button>
+                    
+                    <button class="cart-icon" onclick="toggleCart()" aria-label="Open shopping cart"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 4px; background:none; border:none; color:var(--text-primary); cursor: pointer; position: relative; transition: color 0.3s;"
+                        onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-primary)'">
+                        <div style="position: relative;">
+                            <i class="fas fa-shopping-cart" style="font-size: 1.35rem;"></i>
+                            <span class="cart-count" id="cart-count" style="position: absolute; top: -8px; right: -12px; background: var(--accent-primary); color: #020617; font-size: 0.7rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">0</span>
+                        </div>
+                        <span style="font-size: 0.75rem; font-weight: 500; margin-top: 4px;" class="desktop-only">Cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bottom Bar: Secondary Navigation (Desktop Only) -->
+        <div class="header-bottom desktop-only" style="background: var(--bg-secondary); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+            <div class="container" style="display: flex; gap: 30px; height: 48px; align-items: center; font-size: 0.95rem; font-weight: 500;">
+                <a href="#" onclick="navigateTo('categories'); return false;" style="color: var(--text-primary); transition: color 0.3s; display: flex; align-items: center; gap: 8px;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-primary)'">
+                    <i class="fas fa-bars"></i> All Categories
+                </a>
+                <a href="#" onclick="navigateTo('products', null, 'flash'); return false;" style="color: var(--danger); transition: opacity 0.3s; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    <i class="fas fa-bolt"></i> Flash Sale
+                </a>
+                <a href="#" onclick="navigateTo('products', null, 'new'); return false;" style="color: var(--text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">New Arrivals</a>
+                <a href="#" onclick="navigateTo('rewards'); return false;" style="color: #EC4899; transition: color 0.3s; display: flex; align-items: center; gap: 6px; font-weight: 600;" onmouseover="this.style.color='#F472B6'" onmouseout="this.style.color='#EC4899'">
+                    <i class="fas fa-gift"></i> Rewards & Spin <span style="background: rgba(236,72,153,0.15); border: 1px solid rgba(236,72,153,0.3); font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; color: #EC4899;">Free Coins</span>
+                </a>
+                <a href="#" onclick="navigateTo('affiliate'); return false;" style="color: #F59E0B; transition: color 0.3s; display: flex; align-items: center; gap: 6px; font-weight: 600;" onmouseover="this.style.color='#FBBF24'" onmouseout="this.style.color='#F59E0B'">
+                    <i class="fas fa-hand-holding-usd"></i> Marketing Partner <span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; color: #F59E0B;">Earn 4%-15%</span>
+                </a>
+                <a href="#" onclick="navigateTo('investor'); return false;" style="color: #10B981; transition: color 0.3s; display: flex; align-items: center; gap: 6px; font-weight: 600;" onmouseover="this.style.color='#34D399'" onmouseout="this.style.color='#10B981'">
+                    <i class="fas fa-chart-line"></i> Investor <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; color: #10B981;">18-24% ROI</span>
+                </a>
+                <a href="#" onclick="navigateTo('reseller'); return false;" style="color: #A855F7; transition: color 0.3s; display: flex; align-items: center; gap: 6px; font-weight: 600;" onmouseover="this.style.color='#C084FC'" onmouseout="this.style.color='#A855F7'">
+                    <i class="fas fa-boxes"></i> Reseller <span style="background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; color: #A855F7;">Wholesale</span>
+                </a>
+                <a href="#" onclick="navigateTo('account'); return false;" style="color: var(--text-secondary); transition: color 0.3s; margin-left: auto;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    <i class="fas fa-user-circle" style="margin-right: 5px;"></i> My Hub & Account
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Premium Search Overlay -->
+    <div id="search-overlay" class="search-overlay" onclick="if(event.target===this) closeSearchOverlay()">
+        <div class="search-overlay-content container">
+            <!-- Search Input inside overlay (works on all screen sizes) -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+                <div style="flex:1;display:flex;align-items:center;background:var(--bg-elevated);border:1.5px solid var(--accent-primary);border-radius:var(--radius-btn);overflow:hidden;">
+                    <i class="fas fa-search" style="padding:0 16px;color:var(--text-muted);"></i>
+                    <input type="text" id="overlay-search-input" placeholder="Search products, categories..."
+                        oninput="handleLiveSearch(this.value);document.getElementById('desktop-search-input').value=this.value;"
+                        onkeypress="if(event.key==='Enter'){closeSearchOverlay();navigateTo('search',this.value);}"
+                        autocomplete="off"
+                        style="flex:1;background:transparent;border:none;padding:14px 0;color:var(--text-primary);font-size:1rem;outline:none;">
+                </div>
+                <button onclick="closeSearchOverlay()" style="background:none;border:1px solid var(--border-color);border-radius:50%;width:44px;height:44px;color:var(--text-muted);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- Results -->
+            <div class="search-suggestions-container" id="search-suggestions-container">
+                <!-- Injected via JS -->
+            </div>
+            <div class="search-results-grid" id="search-results-container">
+                <!-- Injected via JS -->
+            </div>
+            <!-- Empty State -->
+            <div id="search-empty-state" style="display:none;text-align:center;padding:40px 20px;">
+                <i class="fas fa-search" style="font-size:3rem;color:var(--text-muted);opacity:0.4;margin-bottom:16px;"></i>
+                <p style="color:var(--text-muted);font-size:1rem;">No products found. Try a different keyword.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Search Bar (Expandable) -->
+    <div class="mobile-search-bar" id="mobile-search-bar">
+        <div class="container">
+            <div class="search-bar">
+                <input type="text" id="mobile-search-input" placeholder="Search for products..."
+                    onkeypress="if(event.key === 'Enter') handleMobileSearch()">
+                <button onclick="handleMobileSearch()" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        <!-- Skeleton Content to prevent CLS -->
+        <section class="container skeleton-container" id="skeleton-container" style="padding: 40px 0;">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="categories-grid" style="margin-bottom: 60px;">
+                <div class="category-card skeleton skeleton-cat"></div>
+                <div class="category-card skeleton skeleton-cat"></div>
+                <div class="category-card skeleton skeleton-cat"></div>
+                <div class="category-card skeleton skeleton-cat"></div>
+                <div class="category-card skeleton skeleton-cat"></div>
+                <div class="category-card skeleton skeleton-cat"></div>
+            </div>
+
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()" aria-label="Close cart tray"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items injected here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">৳0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <div id="global-bottom-sections">
+        <!-- App Download Section (Premium) -->
+        <section class="container">
+            <div
+                style="background: linear-gradient(135deg, rgba(15,23,42,0.8), rgba(2,6,23,0.9)); padding: 60px 40px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+
+                <!-- BG Glow -->
+                <div
+                    style="position: absolute; top: -50%; left: -10%; width: 50%; height: 200%; background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%); pointer-events: none;">
+                </div>
+
+                <div style="flex: 1; min-width: 300px; z-index: 1;">
+                    <div
+                        style="display: inline-block; padding: 6px 12px; background: rgba(245,166,35,0.1); color: #F5A623; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase;">
+                        Get The App
+                    </div>
+                    <h2
+                        style="font-size: 2.5rem; margin-top: 0; margin-bottom: 20px; line-height: 1.2; font-weight: 800;">
+                        Shopping made <br>
+                        <span style="color: #F5A623;">Faster & Easier.</span>
+                    </h2>
+                    <p
+                        style="color: #94A3B8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 35px; max-width: 450px;">
+                        Download the CSGO SHOP app for exclusive mobile-only deals, instant order tracking, and a
+                        seamless shopping experience.
+                    </p>
+
+                    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                        <a href="https://github.com/csglobalorg/csgoshop/releases/download/Neew/app-release.apk"
+                            class="btn"
+                            style="display: inline-flex; align-items: center; gap: 15px; background: #000; border: 1px solid rgba(255,255,255,0.2); padding: 12px 28px; border-radius: 16px; text-decoration: none; color: white; transition: all 0.3s ease;">
+                            <i class="fab fa-android" style="font-size: 2.2rem; color: #3DDC84;"></i>
+                            <div style="text-align: left;">
+                                <div style="font-size: 0.8rem; color: #94A3B8; line-height: 1; margin-bottom: 4px;">
+                                    Download APK</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; line-height: 1;">Android</div>
+                            </div>
+                        </a>
+
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="background: white; padding: 5px; border-radius: 8px;">
+                                <!-- Mock QR Code using CSS grid blocks -->
+                                <div
+                                    style="width: 50px; height: 50px; background: repeating-conic-gradient(#000 0% 25%, transparent 0% 50%) 50% / 10px 10px;">
+                                </div>
+                            </div>
+                            <div style="font-size: 0.85rem; color: #94A3B8; line-height: 1.4;">
+                                Scan to<br>Download
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Mockup Illustration -->
+                <div
+                    style="flex: 1; min-width: 300px; display: flex; justify-content: center; position: relative; z-index: 1;">
+                    <div
+                        style="width: 250px; height: 500px; background: #020617; border: 8px solid #1E293B; border-radius: 40px; position: relative; box-shadow: -20px 20px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05); transform: rotate(5deg) translateY(-20px); overflow: hidden;">
+                        <!-- Dynamic screen mockup -->
+                        <div
+                            style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1E293B; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; z-index: 10;">
+                        </div>
+                        <div
+                            style="padding: 40px 20px 20px; height: 100%; display: flex; flex-direction: column; gap: 15px; background: linear-gradient(180deg, #0F172A, #020617);">
+                            <div
+                                style="width: 100%; height: 150px; background: #1E293B; border-radius: 12px; position: relative; overflow: hidden;">
+                                <div
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(245,166,35,0.2), transparent); transform: translateX(-100%); animation: shimmer 3s infinite;">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="height: 100px; background: #1E293B; border-radius: 12px;"></div>
+                                <div style="height: 100px; background: #1E293B; border-radius: 12px;"></div>
+                            </div>
+                            <div
+                                style="width: 60%; height: 20px; background: #F5A623; border-radius: 10px; margin-top: auto; align-self: center;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer (Premium 4-Column) -->
+        <footer class="footer"
+            style="background: #0B1121; padding: 80px 0 30px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px;">
+            <div class="container">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; margin-bottom: 60px;">
+
+                    <!-- Brand & About -->
+                    <div>
+                        <div class="clean-logo" style="margin-bottom: 20px;">CSGO<span>SHOP</span></div>
+                        <p style="color: #94A3B8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
+                            The ultimate premium marketplace in Bangladesh. Discover top-tier fashion, electronics, and
+                            lifestyle products curated just for you.
+                        </p>
+                        <div class="social-links" style="justify-content: flex-start; gap: 15px;">
+                            <a href="https://www.facebook.com/profile.php?id=61587369655547" target="_blank"
+                                aria-label="Facebook"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                <i class="fab fa-facebook-f" style="color: white;"></i>
+                            </a>
+                            <a href="https://wa.me/8801873827520" target="_blank" aria-label="WhatsApp"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                <i class="fab fa-whatsapp" style="color: white;"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 style="color: white; margin-bottom: 25px; font-size: 1.1rem; font-weight: 600;">Explore</h4>
+                        <ul
+                            style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px;">
+                            <li><a href="#" onclick="navigateTo('home')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Home</a>
+                            </li>
+                            <li><a href="#" onclick="navigateTo('products')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">All
+                                    Products</a></li>
+                            <li><a href="#" onclick="filterCategory('OFFER')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Flash
+                                    Sale</a></li>
+                            <li><a href="#" onclick="navigateTo('categories')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Categories</a>
+                            </li>
+                            <li><a href="#" onclick="navigateTo('rewards')"
+                                    style="color: #EC4899; text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s ease;">
+                                    <i class="fas fa-gift"></i> Rewards & Spin Wheel <span style="background: rgba(236,72,153,0.2); border: 1px solid rgba(236,72,153,0.4); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; color: #EC4899;">Free Coins</span></a>
+                            </li>
+                            <li><a href="#" onclick="navigateTo('affiliate')"
+                                    style="color: #F59E0B; text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s ease;">
+                                    <i class="fas fa-hand-holding-usd"></i> Marketing Partner Program <span style="background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; color: #F59E0B;">Earn 4%-15%</span></a>
+                            </li>
+                            <li><a href="#" onclick="navigateTo('investor')"
+                                    style="color: #10B981; text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s ease;">
+                                    <i class="fas fa-chart-line"></i> Investor Center <span style="background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; color: #10B981;">18-24% ROI</span></a>
+                            </li>
+                            <li><a href="#" onclick="navigateTo('reseller')"
+                                    style="color: #A855F7; text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s ease;">
+                                    <i class="fas fa-boxes"></i> Reseller Hub <span style="background: rgba(168,85,247,0.2); border: 1px solid rgba(168,85,247,0.4); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; color: #A855F7;">Wholesale</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Customer Service -->
+                    <div>
+                        <h4 style="color: white; margin-bottom: 25px; font-size: 1.1rem; font-weight: 600;">Customer
+                            Care</h4>
+                        <ul
+                            style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px;">
+                            <li><a href="#" onclick="navigateTo('about')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">About
+                                    Us</a></li>
+                            <li><a href="#" onclick="navigateTo('contact')"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Contact
+                                    Support</a></li>
+                            <li><a href="#"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Return
+                                    Policy</a></li>
+                            <li><a href="#"
+                                    style="color: #94A3B8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Terms
+                                    & Conditions</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div>
+                        <h4 style="color: white; margin-bottom: 25px; font-size: 1.1rem; font-weight: 600;">Stay Updated
+                        </h4>
+                        <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Get
+                            exclusive deals and offers directly to your inbox.</p>
+                        <form onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();"
+                            style="display: flex; flex-direction: column; gap: 12px;">
+                            <input type="email" placeholder="Email Address" required
+                                style="padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; outline: none; transition: border 0.3s ease;">
+                            <button type="submit" class="btn btn-primary-premium"
+                                style="width: 100%; border-radius: 12px;">Subscribe</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 40px 0;">
+
+                <div
+                    style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+                    <p style="color: #64748B; font-size: 0.9rem; margin: 0;">&copy; <span id="current-year">2026</span>
+                        CSGO SHOP. All rights reserved.</p>
+
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <span style="color: #64748B; font-size: 0.85rem;">Secure Payments:</span>
+                        <div style="display: flex; gap: 10px;">
+                            <!-- Payment Icons -->
+                            <div
+                                style="width: 40px; height: 25px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: white; font-weight: bold;">
+                                bKash</div>
+                            <div
+                                style="width: 40px; height: 25px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: white; font-weight: bold;">
+                                Nagad</div>
+                            <div
+                                style="width: 40px; height: 25px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: white; font-weight: bold;">
+                                Visa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- End Global Bottom Sections -->
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801873827520" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp" style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Auth Modal (Login / Register) -->
+    <div id="auth-modal" class="modal-overlay" style="display: none;" onclick="if(event.target===this)closeAuthModal()">
+        <div class="modal-content" style="max-width: 480px; padding: 0; overflow: hidden; border-radius: 16px;">
+            <!-- Header tabs -->
+            <div style="display: flex; border-bottom: 1px solid var(--border-color); background: var(--bg-card);">
+                <button id="tab-login" onclick="switchAuthTab('login')"
+                    style="flex: 1; padding: 18px 12px; background: none; border: none; border-bottom: 2px solid var(--accent-primary); color: var(--accent-primary); cursor: pointer; font-weight: 700; font-size: 1rem; transition: all 0.2s;">
+                    Login
+                </button>
+                <button id="tab-register" onclick="switchAuthTab('register')"
+                    style="flex: 1; padding: 18px 12px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted, #aaa); cursor: pointer; font-weight: 700; font-size: 1rem; transition: all 0.2s;">
+                    Register
+                </button>
+                <button onclick="closeAuthModal()" style="padding: 18px 20px; background: none; border: none; color: var(--text-muted, #aaa); cursor: pointer; font-size: 1.4rem; line-height: 1;">&times;</button>
+            </div>
+
+            <div style="padding: 30px 28px 28px;">
+                <!-- Login Form -->
+                <div id="form-login">
+                    <p style="text-align: center; color: var(--text-muted, #aaa); margin-bottom: 22px; font-size: 0.9rem;">Welcome back! Please login to your account.</p>
+                    <form onsubmit="window.handleAuth(event, 'login')">
+                        <div style="position: relative; margin-bottom: 14px;">
+                            <i class="fas fa-user-circle" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #aaa);"></i>
+                            <input type="text" id="login-phone" placeholder="Phone Number or Username" required
+                                style="width: 100%; padding: 13px 13px 13px 44px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; font-size: 0.95rem; box-sizing: border-box;">
+                        </div>
+                        <div style="position: relative; margin-bottom: 10px;">
+                            <i class="fas fa-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #aaa);"></i>
+                            <input type="password" id="login-pass" placeholder="Password" required
+                                style="width: 100%; padding: 13px 44px 13px 44px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; font-size: 0.95rem; box-sizing: border-box;">
+                            <i class="fas fa-eye" id="toggle-password" onclick="togglePasswordVisibility()"
+                                style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #aaa); cursor: pointer;"></i>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; margin-bottom: 22px;">
+                            <a href="#" onclick="resetPasswordWhatsApp(); return false;" style="color: var(--accent-primary); font-size: 0.85rem; text-decoration: none;">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; padding: 13px; font-size: 1rem;">Login</button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="form-register" style="display: none;">
+                    <p style="text-align: center; color: var(--text-muted, #aaa); margin-bottom: 22px; font-size: 0.9rem;">Create a new account to start shopping.</p>
+                    <form onsubmit="window.handleAuth(event, 'register')">
+                        <input type="text" id="reg-name" placeholder="Full Name" required
+                            style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; margin-bottom: 12px; font-size: 0.95rem; box-sizing: border-box;">
+                        <input type="text" id="reg-username" placeholder="Username" required
+                            style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; margin-bottom: 12px; font-size: 0.95rem; box-sizing: border-box;">
+                        <input type="tel" id="reg-phone" placeholder="Phone Number (11 digits)" required
+                            style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; margin-bottom: 12px; font-size: 0.95rem; box-sizing: border-box;">
+                        <input type="password" id="reg-pass" placeholder="Password" required
+                            style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; margin-bottom: 12px; font-size: 0.95rem; box-sizing: border-box;">
+                        <input type="text" id="reg-referral" placeholder="Referral Code (Optional)"
+                            style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-dark); color: white; margin-bottom: 22px; font-size: 0.95rem; box-sizing: border-box;">
+                        <button type="submit" class="btn" style="width: 100%; padding: 13px; font-size: 1rem;">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payout Modal -->
+    <div id="payout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Request Payout</h2>
+                <button class="close-modal" onclick="closePayoutModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div
+                    style="background: rgba(0, 150, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(0, 150, 255, 0.2);">
+                    <p style="margin: 0; font-size: 0.9rem; color: #80c4ff;">Available Balance</p>
+                    <h3 id="modal-available-balance" style="margin: 5px 0 0 0; color: white; font-size: 1.5rem;">৳0</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="payout-amount">Withdrawal Amount (৳)</label>
+                    <input type="number" id="payout-amount" placeholder="Min: 200">
+                </div>
+
+                <div class="form-group">
+                    <label for="payout-type-select">Withdrawal Type</label>
+                    <select id="payout-type-select" onchange="updatePayoutFee()"
+                        style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 1rem;">
+                        <option value="regular">Regular Affiliate Payout (0% Fee)</option>
+                        <option value="cashout">Cashout</option>
+                    </select>
+                </div>
+
+                <div id="payout-fee-info"
+                    style="display: none; background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(239, 68, 68, 0.2); font-size: 0.9rem; color: #ff8080;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Fee <span id="payout-fee-info-percentage">(5%)</span>:</span>
+                        <strong id="payout-fee-amount">৳0</strong>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; border-top: 1px solid rgba(239, 68, 68, 0.2); padding-top: 5px; font-weight: 700;">
+                        <span>You will receive:</span>
+                        <strong id="payout-net-amount">৳0</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="payout-account-select">Select Payment Account</label>
+                    <div id="payout-account-container">
+                        <!-- Populated via JS -->
+                        <select id="payout-account-select"
+                            style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 1rem;">
+                            <option value="">No accounts found</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem;"
+                    onclick="handlePayoutSubmission()">Submit Request</button>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 15px;">Admin will
+                    process your request within 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Money Modal -->
+    <div id="add-money-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Add Money to Wallet</h2>
+                <button class="close-modal" onclick="closeAddMoneyModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="add-money-amount">Amount (৳)</label>
+                    <input type="number" id="add-money-amount" placeholder="Min: 100" min="100" value="500"
+                        oninput="updateAddMoneyInstructions()">
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-method">Payment Method</label>
+                    <select id="add-money-method" onchange="updateAddMoneyInstructions()"
+                        style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 1rem;">
+                        <option value="bkash">bKash (Personal)</option>
+                        <option value="nagad">Nagad (Personal)</option>
+                    </select>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.08);">
+                    <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--text-light);">Payment Instructions:
+                    </p>
+                    <div style="font-size: 0.95rem; line-height: 1.6; color: white;">
+                        1. Send <strong>৳<span id="add-money-inst-amount">500</span></strong> to our <span
+                            id="add-money-inst-method">bKash</span> number: <br>
+                        <strong
+                            style="color: var(--accent-color); font-size: 1.1rem; letter-spacing: 0.5px;">01873827520</strong>
+                        (Send Money)<br>
+                        2. After sending the money, enter your Sender Phone number and Transaction ID (TrxID) below.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-sender">Sender Phone Number</label>
+                    <input type="tel" id="add-money-sender" placeholder="e.g. 017XXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-trxid">Transaction ID (TrxID)</label>
+                    <input type="text" id="add-money-trxid" placeholder="e.g. 8N7X2W8K">
+                </div>
+
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem;"
+                    onclick="handleAddMoneySubmission()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Product Modal -->
+    <div id="admin-product-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 id="product-form-title">Add New Product</h2>
+                <button class="close-modal" onclick="adminCloseProductForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="ap-id">
+                
+                <div class="form-group">
+                    <label for="ap-name">Product Name</label>
+                    <input type="text" id="ap-name" placeholder="e.g. Premium Silk Sharee" required>
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="ap-price">Price (৳)</label>
+                        <input type="number" id="ap-price" placeholder="e.g. 1500" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-category">Category</label>
+                    <input type="text" id="ap-category" placeholder="e.g. Women's Fashion">
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-subcategory">Subcategory</label>
+                    <input type="text" id="ap-subcategory" placeholder="e.g. Sharee">
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-sub-subcategory">Sub-subcategory</label>
+                    <input type="text" id="ap-sub-subcategory" placeholder="e.g. Silk Sharee">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ap-image">Image URL</label>
+                    <input type="url" id="ap-image" placeholder="https://example.com/image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ap-desc">Description</label>
+                    <textarea id="ap-desc" rows="3" placeholder="Product details..."></textarea>
+                </div>
+
+                <button id="product-form-submit" class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; margin-top: 10px;" onclick="adminSubmitProduct(event)">Create Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Bulk Transfer Modal -->
+    <div id="admin-bulk-transfer-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Bulk Transfer Products</h2>
+                <button class="close-modal" onclick="document.getElementById('admin-bulk-transfer-modal').style.display='none'">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="abt-type">Transfer By</label>
+                    <select id="abt-type" class="btn" style="width: 100%; text-align: left; background: var(--surface); color: var(--text);">
+                        <option value="1">Category</option>
+                        <option value="2">Subcategory</option>
+                        <option value="3">Sub-subcategory</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="abt-old-name">Old Name to Match (Exact Match)</label>
+                    <input type="text" id="abt-old-name" placeholder="e.g. Sharee" required>
+                    <small style="color: var(--text-muted);">All products with this name in the selected level will be transferred.</small>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem;">New Categorization</h3>
+
+                <div class="form-group">
+                    <label for="abt-new-category">New Category</label>
+                    <input type="text" id="abt-new-category" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <div class="form-group">
+                    <label for="abt-new-subcategory">New Subcategory</label>
+                    <input type="text" id="abt-new-subcategory" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <div class="form-group">
+                    <label for="abt-new-sub-subcategory">New Sub-subcategory</label>
+                    <input type="text" id="abt-new-sub-subcategory" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; margin-top: 10px;" onclick="window.adminExecuteBulkTransfer()">Transfer Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-item active" onclick="navigateTo('home'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="navigateTo('products'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Categories</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="toggleCart(); updateBottomNav(this); return false;">
+            <div style="position: relative;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="bottom-nav-badge" id="bottom-cart-count">0</span>
+            </div>
+            <span>Cart</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="navigateTo('orders'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem;"
+                    onclick="handlePayoutSubmission()">Submit Request</button>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 15px;">Admin will
+                    process your request within 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Money Modal -->
+    <div id="add-money-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Add Money to Wallet</h2>
+                <button class="close-modal" onclick="closeAddMoneyModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="add-money-amount">Amount (৳)</label>
+                    <input type="number" id="add-money-amount" placeholder="Min: 100" min="100" value="500"
+                        oninput="updateAddMoneyInstructions()">
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-method">Payment Method</label>
+                    <select id="add-money-method" onchange="updateAddMoneyInstructions()"
+                        style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 1rem;">
+                        <option value="bkash">bKash (Personal)</option>
+                        <option value="nagad">Nagad (Personal)</option>
+                    </select>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.08);">
+                    <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--text-light);">Payment Instructions:
+                    </p>
+                    <div style="font-size: 0.95rem; line-height: 1.6; color: white;">
+                        1. Send <strong>৳<span id="add-money-inst-amount">500</span></strong> to our <span
+                            id="add-money-inst-method">bKash</span> number: <br>
+                        <strong
+                            style="color: var(--accent-color); font-size: 1.1rem; letter-spacing: 0.5px;">01873827520</strong>
+                        (Send Money)<br>
+                        2. After sending the money, enter your Sender Phone number and Transaction ID (TrxID) below.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-sender">Sender Phone Number</label>
+                    <input type="tel" id="add-money-sender" placeholder="e.g. 017XXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="add-money-trxid">Transaction ID (TrxID)</label>
+                    <input type="text" id="add-money-trxid" placeholder="e.g. 8N7X2W8K">
+                </div>
+
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem;"
+                    onclick="handleAddMoneySubmission()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Product Modal -->
+    <div id="admin-product-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 id="product-form-title">Add New Product</h2>
+                <button class="close-modal" onclick="adminCloseProductForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="ap-id">
+                
+                <div class="form-group">
+                    <label for="ap-name">Product Name</label>
+                    <input type="text" id="ap-name" placeholder="e.g. Premium Silk Sharee" required>
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="ap-price">Price (৳)</label>
+                        <input type="number" id="ap-price" placeholder="e.g. 1500" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-category">Category</label>
+                    <input type="text" id="ap-category" placeholder="e.g. Women's Fashion">
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-subcategory">Subcategory</label>
+                    <input type="text" id="ap-subcategory" placeholder="e.g. Sharee">
+                </div>
+
+                <div class="form-group">
+                    <label for="ap-sub-subcategory">Sub-subcategory</label>
+                    <input type="text" id="ap-sub-subcategory" placeholder="e.g. Silk Sharee">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ap-image">Image URL</label>
+                    <input type="url" id="ap-image" placeholder="https://example.com/image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ap-desc">Description</label>
+                    <textarea id="ap-desc" rows="3" placeholder="Product details..."></textarea>
+                </div>
+
+                <button id="product-form-submit" class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; margin-top: 10px;" onclick="adminSubmitProduct(event)">Create Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Bulk Transfer Modal -->
+    <div id="admin-bulk-transfer-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Bulk Transfer Products</h2>
+                <button class="close-modal" onclick="document.getElementById('admin-bulk-transfer-modal').style.display='none'">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="abt-type">Transfer By</label>
+                    <select id="abt-type" class="btn" style="width: 100%; text-align: left; background: var(--surface); color: var(--text);">
+                        <option value="1">Category</option>
+                        <option value="2">Subcategory</option>
+                        <option value="3">Sub-subcategory</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="abt-old-name">Old Name to Match (Exact Match)</label>
+                    <input type="text" id="abt-old-name" placeholder="e.g. Sharee" required>
+                    <small style="color: var(--text-muted);">All products with this name in the selected level will be transferred.</small>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem;">New Categorization</h3>
+
+                <div class="form-group">
+                    <label for="abt-new-category">New Category</label>
+                    <input type="text" id="abt-new-category" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <div class="form-group">
+                    <label for="abt-new-subcategory">New Subcategory</label>
+                    <input type="text" id="abt-new-subcategory" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <div class="form-group">
+                    <label for="abt-new-sub-subcategory">New Sub-subcategory</label>
+                    <input type="text" id="abt-new-sub-subcategory" placeholder="Leave empty to keep unchanged">
+                </div>
+
+                <button class="btn" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; margin-top: 10px;" onclick="window.adminExecuteBulkTransfer()">Transfer Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-item active" onclick="navigateTo('home'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="navigateTo('products'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Categories</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="toggleCart(); updateBottomNav(this); return false;">
+            <div style="position: relative;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="bottom-nav-badge" id="bottom-cart-count">0</span>
+            </div>
+            <span>Cart</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="navigateTo('orders'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m21 16-4 4-4-4"></path>
+                <path d="M17 20V4"></path>
+                <path d="m3 8 4-4 4 4"></path>
+                <path d="M7 4v16"></path>
+            </svg>
+            <span>Orders</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="openEcosystemHub(); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span style="color: var(--accent-primary); font-weight: bold;">Hub</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="navigateTo('account'); updateBottomNav(this); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script type="module" src="script.js"></script>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="mobile-menu" style="position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: var(--bg-elevated); z-index: 1000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.5); display: flex; flex-direction: column;">
+        <div style="padding: 20px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo" style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">CSGO<span style="color: var(--accent-primary);">SHOP</span></div>
+            <button onclick="closeMobileMenu()" style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; flex-grow: 1; display: flex; flex-direction: column; gap: 15px;">
+            <a href="#" onclick="closeMobileMenu(); navigateTo('home'); return false;" style="color: white; text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-home text-[var(--accent-primary)] w-6"></i> Home</a>
+            <a href="#" onclick="closeMobileMenu(); navigateTo('products'); return false;" style="color: white; text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-box-open text-[var(--accent-primary)] w-6"></i> Products</a>
+            <a href="#" onclick="closeMobileMenu(); navigateTo('products', null, 'flash'); return false;" style="color: var(--danger); text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-bolt w-6"></i> Flash Sale</a>
+            <a href="#" onclick="closeMobileMenu(); navigateTo('wishlist'); return false;" style="color: white; text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-heart text-[var(--accent-primary)] w-6"></i> Wishlist</a>
+            <a href="#" onclick="closeMobileMenu(); navigateTo('account'); return false;" style="color: white; text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-user text-[var(--accent-primary)] w-6"></i> Account</a>
+            <a href="#" onclick="closeMobileMenu(); navigateTo('affiliate'); return false;" style="color: white; text-decoration: none; font-size: 1.1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);"><i class="fas fa-users-cog text-[var(--accent-primary)] w-6"></i> Affiliate</a>
+        </div>
+    </div>
+    <div id="mobile-menu-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 999; display: none;" onclick="closeMobileMenu()"></div>
+</body>
+
+</html>
